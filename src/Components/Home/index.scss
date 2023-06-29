@@ -1,0 +1,134 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+input,
+select,
+textarea {
+  background-color: transparent;
+  outline: none;
+}
+button {
+  cursor: pointer;
+  background-color: transparent;
+  outline: none;
+  border: 0;
+}
+body {
+  min-height: 100vh;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1;
+}
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+
+.home {
+  margin: 0;
+  padding: 0;
+}
+.home {
+  // height: 90vh;
+  background-color: #eae9e9;
+}
+.filter-icon {
+  display: none;
+}
+.footer-home-container-right {
+  background-color: #cccccc;
+  width: 100%;
+  height: auto;
+  flex: 1;
+}
+.home {
+  display: flex;
+}
+.book:hover {
+  transform: translateY(-20px);
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+@media only screen and (max-height: 572px) {
+  .home {
+    height: 100vh;
+  }
+}
+@media only screen and (max-width: 376px) {
+  body > div:nth-child(3) > div > div.ant-drawer-content-wrapper {
+    width: 100%;
+  }
+  #root > div > div > div > div:nth-child(2) > div {
+    background-color: rgb(239, 238, 240);
+    /* display: flex; */
+    flex-direction: row;
+    height: auto;
+  }
+  .home {
+    display: initial;
+    /* Hoặc */
+    display: unset;
+    /* Hoặc */
+    display: block;
+    /* Hoặc bất kỳ giá trị display khác phù hợp với yêu cầu của bạn */
+  }
+  #root > div > div > div > div:nth-child(1) > div.cart > span {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  #root > div > div > div > div:nth-child(1) > div.cart > span > span {
+    font-size: 53px;
+    color: rgb(137, 211, 255);
+    cursor: pointer;
+  }
+}
+@media only screen and (max-width: 984px) {
+  .home-container-left {
+    display: none;
+  }
+  .filter-icon {
+    display: block;
+  }
+}
+@media only screen and (max-width: 391px) {
+  // .home {
+  //   display: initial;
+  //   /* Hoặc */
+  //   display: unset;
+  //   /* Hoặc */
+  //   display: block;
+  //   /* Hoặc bất kỳ giá trị display khác phù hợp với yêu cầu của bạn */
+  // }
+}
+@media only screen and (max-width: 700px) {
+  .book {
+    max-width: 50%;
+    flex: none;
+    margin-bottom: 10px;
+  }
+}
+@media only screen and (max-width: 495px) {
+  .book {
+    max-width: 100%;
+    flex: none;
+    margin-bottom: 10px;
+  }
+}

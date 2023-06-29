@@ -1,0 +1,62 @@
+.react-icon {
+  animation: rotate 5s linear infinite;
+}
+:where(.css-dev-only-do-not-override-yp8pcc).ant-col-12 {
+  display: block;
+  flex: none;
+  max-width: 50%;
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.menu-icon {
+  display: none;
+}
+@media only screen and (max-width: 672px) {
+  .cart {
+    position: relative;
+  }
+  .ant-space-align-center {
+    // align-items: center;
+    display: none;
+  }
+  .react-icon {
+    display: none;
+  }
+  .logo {
+    display: none;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .menu-icon {
+    display: block;
+    font-size: 40px;
+  }
+  .cart {
+    position: relative;
+  }
+  .logo {
+    display: none;
+  }
+  .ant-space-align-center {
+    // align-items: center;
+    display: none;
+  }
+  .react-icon {
+    display: none;
+  }
+}
+@media only screen and (max-width: 780px) {
+  .react-icon {
+    display: none;
+  }
+  .logo {
+    font-size: 20px;
+  }
+}

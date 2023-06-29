@@ -1,0 +1,48 @@
+.order-top-left {
+  width: 60%;
+}
+
+.delete-icon {
+  font-size: 20px;
+}
+.order-top-right {
+  width: 40%;
+}
+.btn-buy-now {
+  display: flex;
+  justify-content: center;
+}
+.now {
+  padding: 10px 20px 10px 20px;
+  width: 80%;
+  color: #fff;
+  position: relative;
+  overflow: visible;
+  outline: 0;
+  background: #ee4d2d;
+}
+@media only screen and (max-width: 1267px) {
+  .order-top .delete-icon {
+    font-size: 16px !important;
+  }
+}
+@media only screen and (max-width: 1069px) {
+  .order-top {
+    display: flex;
+    flex-direction: column;
+  }
+  .order-top .delete-icon {
+    font-size: 16px !important;
+  }
+  .order-top-left {
+    width: 100%;
+  }
+  .order-top-right {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 1069px) {
+  .order-container .order-top .order-top-left .item-text {
+    font-size: 14px;
+  }
+}

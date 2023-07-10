@@ -163,7 +163,6 @@ const Home = () => {
       className="home"
       style={{
         backgroundColor: "#EFEEF0",
-        // display: "flex",
         flexDirection: "row",
         height: "auto",
       }}
@@ -211,7 +210,7 @@ const Home = () => {
         >
           <Form.Item name="category">
             <div className="category">
-              <span>Danh muc san pham</span>
+              <span>Danh Mục Sản Phẩm</span>
               <div className="list-category">
                 <Checkbox.Group
                   style={{ width: "100%" }}
@@ -238,7 +237,7 @@ const Home = () => {
           </Form.Item>
           <Form.Item name="range">
             <div className="price-range" style={{ paddingTop: "20px" }}>
-              <span>Khoang gia</span>
+              <span>Khoảng giá</span>
               <div
                 className="range"
                 style={{
@@ -264,7 +263,7 @@ const Home = () => {
                 }}
               >
                 <Button onClick={() => form.submit()} type="primary">
-                  Ap Dung
+                  Áp dụng
                 </Button>
               </div>
               <Divider />

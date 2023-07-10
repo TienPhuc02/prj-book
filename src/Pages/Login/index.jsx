@@ -64,6 +64,7 @@ const LoginPage = () => {
             maxWidth: 600,
             margin: "0 auto",
             alignItems: "center",
+            padding: "40px",
           }}
           // initialValues={{ remember: true }}
           onFinish={onFinish}

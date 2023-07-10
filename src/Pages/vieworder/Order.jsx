@@ -54,28 +54,6 @@ const Order = (props) => {
           flexDirection: "column",
         }}
       >
-        {/* <div
-          style={{
-            margin: "10px 20px 10px 10px ",
-            backgroundColor: "white",
-            padding: "10px",
-          }}
-        >
-          <Steps
-            current={currentStep}
-            items={[
-              {
-                title: "Đơn hàng",
-              },
-              {
-                title: "Đặt hàng",
-              },
-              {
-                title: "Thanh toán",
-              },
-            ]}
-          />
-        </div> */}
         <div style={{ display: "flex", flexDirection: "row" }}>
           <div
             className="order-top-left"

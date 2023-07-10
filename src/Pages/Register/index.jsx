@@ -38,14 +38,10 @@ const RegisterPage = () => {
         alignItems: "center",
       }}
     >
-      {/* <h2 style={{ textAlign: "center" }}>Đăng kí tài khoản</h2> */}
       <Form
         name="basic"
         labelCol={{
           span: 24,
-        }}
-        wrapperCol={{
-          span: 16,
         }}
         style={{
           maxWidth: 600,
@@ -55,6 +51,7 @@ const RegisterPage = () => {
           paddingLeft: "10px",
           boxShadow:
             " 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1)",
+          padding: "40px",
         }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
@@ -114,13 +111,18 @@ const RegisterPage = () => {
             offset: 8,
             span: 16,
           }}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
           <Button type="primary" htmlType="submit" loading={isSubmit}>
             Submit
           </Button>
         </Form.Item>
-        <p>Or</p>
-        <p>
+        <p style={{ textAlign: "center" }}>Or</p>
+        <p style={{ textAlign: "center" }}>
           Đã có tài khoản?
           <Link to={"/login"}>Đăng nhập</Link>
         </p>

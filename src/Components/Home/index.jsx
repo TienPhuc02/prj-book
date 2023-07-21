@@ -68,7 +68,6 @@ const Home = () => {
       ...values,
       range: range,
     };
-
     console.log(updateValues);
   };
   const getAllCategory = async () => {
@@ -112,7 +111,6 @@ const Home = () => {
       setFilter(f);
     }
   };
-
   const nonAccentVietnamese = (str) => {
     str = str.replace(/A|Á|À|Ã|Ạ|Â|Ấ|Ầ|Ẫ|Ậ|Ă|Ắ|Ằ|Ẵ|Ặ/g, "A");
     str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");

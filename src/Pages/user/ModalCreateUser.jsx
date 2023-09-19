@@ -27,7 +27,7 @@ const ModalCreateUser = (props) => {
           onFinish={props.handleSubmitCreateUser}
           name="basic"
           wrapperCol={24}
-          // initialValues={{
+          // defaultValue={{
           //   remember: true,
           // }}
           autoComplete="off"

@@ -21,6 +21,7 @@ const Header = (props) => {
   const onChangeSearch = (value) => console.log(value);
   const login = useSelector((state) => state?.account?.isAuthenticated);
   const user = useSelector((state) => state?.account?.user);
+  console.log("🚀 ~ file: index.jsx:24 ~ Header ~ user:", user.role.name)
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState("left");
   const [arrowAtCenter, setArrowAtCenter] = useState(false);
@@ -103,7 +104,7 @@ const Header = (props) => {
       label: "Đăng Xuất",
     },
   ];
-  if (user?.role === "ADMIN") {
+  if (user?.role?.name === "ADMIN") {
     options.unshift({
       value: "Trang Quản Trị",
       label: "Trang Quản Trị",

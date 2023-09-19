@@ -16,7 +16,7 @@ const items = [
     label: `Phổ Biến`,
   },
   {
-    key: "&sort=-updateAt",
+    key: "&sort=-updatedAt",
     label: `Hàng Mới`,
   },
   {
@@ -72,11 +72,11 @@ const Home = () => {
   };
   const getAllCategory = async () => {
     const res = await callBookCategory();
-    if (res && res.data) {
-      const d = res.data.map((item) => {
+    if (res && res.data && res.data.data) {
+      const d = res?.data?.data.map((item) => {
         return { label: item, value: item };
       });
-      setListCategory(res.data);
+      setListCategory(res.data.data);
     }
   };
   const getListBook = async () => {
@@ -432,9 +432,10 @@ const Home = () => {
                       >
                         <div>
                           <img
-                            src={`${
-                              import.meta.env.VITE_BACKEND_URL
-                            }/images/book/${item.thumbnail}`}
+                            src={`
+                            ${import.meta.env.VITE_BACKEND_URL}/images/book/${
+                              item.thumbnail
+                            }`}
                             alt=""
                           />
                         </div>

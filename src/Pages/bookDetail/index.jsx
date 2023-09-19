@@ -8,8 +8,8 @@ import { BsCartPlus } from "react-icons/bs";
 import BookLoader from "./bookLoader";
 import { callAllBooks, callImageBook } from "../../service/api";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { doBookAction } from "../../redux/order/orderSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { doBookAction, doUpdateOrder } from "../../redux/order/orderSlice";
 const ViewDetail = (props) => {
   const [isOpenModalGallery, setIsOpenModalGallery] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -19,6 +19,8 @@ const ViewDetail = (props) => {
   const [quantityNumber, setQuantityNumber] = useState(1);
   const location = useLocation();
   const navigate = useNavigate("/");
+  const cartArray = useSelector((state) => state.order.cart);
+  console.log("🚀 ~ file: index.jsx:23 ~ ViewDetail ~ cartCount:", cartArray);
   const [images, setImages] = useState([]);
   let params = new URLSearchParams(location.search);
   const id = params?.get("id");
@@ -56,17 +58,44 @@ const ViewDetail = (props) => {
   };
   const getDataBook = async () => {
     const res = await callImageBook(id);
+    console.log("🚀 ~ file: index.jsx:59 ~ getDataBook ~ res:", res);
     if (res && res.data) {
       setTimeout(() => {
-        getImages(res.data);
-        setDataBook(res.data);
-      }, 2000);
+        getImages(res.data[0]);
+        setDataBook(res.data[0]);
+      }, 500);
     }
   };
   const dispatch = useDispatch();
   const handleAddToCart = (quantity, book) => {
-    dispatch(doBookAction({ quantity, detail: book, _id: book._id }));
-    message.success("Thêm vào giỏ hàng thành công");
+    if (cartArray.length === 0) {
+      // Nếu giỏ hàng trống, thêm sản phẩm mới vào giỏ hàng
+      dispatch(doBookAction({ quantity, detail: book, _id: book._id }));
+    } else {
+      // Kiểm tra xem sản phẩm có cùng ID đã tồn tại trong giỏ hàng chưa
+      const existingCartItem = cartArray.find((item) => item.id === book._id);
+
+      if (existingCartItem) {
+        // Nếu sản phẩm đã tồn tại trong giỏ hàng, cộng thêm số lượng vào tối đa là quantity
+        const newQuantity = existingCartItem.quantity + quantity;
+        if (newQuantity <= book.quantity) {
+          dispatch(
+            doUpdateOrder({
+              quantity: newQuantity,
+              detail: book,
+              _id: book._id,
+            })
+          );
+          message.success(`Sản phẩm đã được cập nhật trong giỏ hàng.`);
+        } else {
+          message.error(`Số lượng sản phẩm vượt quá số lượng có sẵn.`);
+        }
+      } else {
+        // Nếu sản phẩm chưa tồn tại trong giỏ hàng, thêm sản phẩm mới vào giỏ hàng
+        dispatch(doBookAction({ quantity, detail: book, _id: book._id }));
+        message.success(`Sản phẩm đã được thêm vào giỏ hàng.`);
+      }
+    }
   };
   const handleChangeQuantityNumber = (value) => {
     setQuantityNumber(value);
@@ -172,12 +201,14 @@ const ViewDetail = (props) => {
                     </span>
                   </div>
                   <div className="buy">
-                    <button className="cart">
+                    <button className="cart" onClick={() =>
+                          handleAddToCart(quantityNumber, dataBook)
+                        }>
                       {/* <BsCartPlus className="icon-cart" /> */}
                       <span
-                        onClick={() =>
-                          handleAddToCart(quantityNumber, dataBook)
-                        }
+                        // onClick={() =>
+                        //   handleAddToCart(quantityNumber, dataBook)
+                        // }
                       >
                         Thêm vào giỏ hàng
                       </span>

@@ -35,6 +35,7 @@ export const accountSlice = createSlice({
       };
     },
     doGetAccountAction: (state, action) => {
+      console.log("🚀 ~ file: accountSlice.js:38 ~ action:", action.payload);
       state.isAuthenticated = true;
       state.isLoading = false;
       state.user = action.payload;

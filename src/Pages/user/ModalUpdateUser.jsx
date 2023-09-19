@@ -47,7 +47,7 @@ const ModalUpdateUser = (props) => {
           style={{
             maxWidth: 600,
           }}
-          // initialValues={{
+          // defaultValue={{
           //   remember: true,
           // }}
           onFinish={onFinish}

@@ -212,7 +212,7 @@ const OrderPlace = (props) => {
               labelCol={{
                 span: 24,
               }}
-              initialValues={{
+              defaultValue={{
                 remember: true,
               }}
               onFinish={(value) => onFinish(value)}

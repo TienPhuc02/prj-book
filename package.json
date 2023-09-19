@@ -14,7 +14,7 @@
     "@babel/preset-react": "^7.22.3",
     "@reduxjs/toolkit": "^1.9.3",
     "antd": "^5.4.6",
-    "axios": "^1.4.0",
+    "axios": "1.5.0",
     "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-countup": "^6.4.2",

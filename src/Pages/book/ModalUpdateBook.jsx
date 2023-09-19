@@ -27,6 +27,8 @@ const ModalUpdateBook = (props) => {
   const [dataSlider, setDataSlider] = useState([]);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
+  const [imageThumbnail, setImageThumbnail] = useState([]);
+  const [imageSlider, setImageSlider] = useState([]);
   const [previewTitle, setPreviewTitle] = useState("");
   const [initForm, setInitForm] = useState(null);
   const handleCancel = () => {
@@ -41,8 +43,8 @@ const ModalUpdateBook = (props) => {
   const onSearch = (value) => {};
   const getBookCategory = async () => {
     const res = await callBookCategory();
-    if (res && res?.data) {
-      setCategoryBook(res.data);
+    if (res && res?.data && res.data.data) {
+      setCategoryBook(res.data.data);
     }
   };
   const onChangeSold = (value) => {
@@ -73,13 +75,21 @@ const ModalUpdateBook = (props) => {
     }
   };
   const handleUploadFileThumbnail = async ({ file, onSuccess, onError }) => {
-    // console.log(file);
+    console.log(
+      "🚀 ~ file: ModalUpdateBook.jsx:78 ~ handleUploadFileThumbnail ~ file:",
+      file.name
+    );
     const res = await callUploadBookImg(file);
-    if (res && res.data) {
+    console.log(
+      "🚀 ~ file: ModalUpdateBook.jsx:77 ~ handleUploadFileThumbnail ~ res:",
+      res
+    );
+    if (res && res.data && res.data.file) {
       setDataThumbnail({
-        name: res.data.fileUploaded,
+        name: res.data.file.filename,
         uid: file.uid,
       });
+      console.log(dataThumbnail);
     }
     onSuccess("ok");
   };
@@ -332,7 +342,7 @@ const ModalUpdateBook = (props) => {
                 name="sold"
               >
                 <InputNumber
-                  // initialValues={{
+                  // defaultValue={{
                   //   sold: 0,
                   // }}
                   onChange={onChangeSold}

@@ -7,10 +7,11 @@ const AdminComponent = () => {
   const [totalOrder, setTotalOrder] = useState(0);
   const getDashBoard = async () => {
     const res = await callGetDashBoard();
+    console.log("🚀 ~ file: index.jsx:10 ~ getDashBoard ~ res:", res);
     console.log(res);
-    if (res && res.data) {
-      setTotalOrder(res.data.countOrder);
-      setTotalUser(res.data.countUser);
+    if (res && res.data && res.data.data) {
+      setTotalOrder(res.data.data.countOrder);
+      setTotalUser(res.data.data.countUser);
     }
   };
   const formatterUser = (totalUser) => (

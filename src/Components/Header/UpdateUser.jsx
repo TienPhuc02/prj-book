@@ -43,7 +43,7 @@ const updateUser = (props) => {
       _id: values._id,
     };
     const res = await callUpdateUser(data);
-    // console.log(res);
+    console.log("🚀 ~ file: UpdateUser.jsx:46 ~ onFinish ~ res:", res)
     if (res && res.data) {
       dispath(doUpdateAccountAction(data));
       props.handleCancel();
@@ -57,6 +57,7 @@ const updateUser = (props) => {
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState();
   const user = useSelector((state) => state?.account?.user);
+  console.log("🚀 ~ file: UpdateUser.jsx:60 ~ updateUser ~ user:", user)
   const [userAvatar, setUserAavatar] = useState(user?.avatar ?? "");
   const dispath = useDispatch();
   const [form] = Form.useForm();
@@ -80,8 +81,8 @@ const updateUser = (props) => {
   );
   const handleUploadAvatar = async ({ file, onSuccess, onError }) => {
     const res = await callUploadAvatar(file);
-    dispath(doUploadAvatarAccountAction(res.data.fileUploaded));
-    form.setFieldsValue({ avatar: res.data.fileUploaded });
+    dispath(doUploadAvatarAccountAction(res.data.file.filename));
+    form.setFieldsValue({ avatar: res.data.file.filename });
     onSuccess("ok");
   };
   const propsUpload = {
@@ -113,7 +114,7 @@ const updateUser = (props) => {
         labelCol={{
           span: 12,
         }}
-        initialValues={{
+        defaultValue={{
           _id: user?.id,
           email: user?.email,
           fullName: user.fullName,

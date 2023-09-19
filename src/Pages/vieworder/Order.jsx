@@ -26,12 +26,44 @@ const Order = (props) => {
   const dispatch = useDispatch();
   console.log(orderList);
   const [totalPrice, setTotalPrice] = useState(0);
+  const calculateTotalQuantity = (itemId) => {
+    return orderList.reduce((total, item) => {
+      if (item.detail._id === itemId) {
+        return total + item.quantity;
+      }
+      return total;
+    }, 0);
+  };
   const handleChangeOrder = (value, item) => {
-    console.log("changed", value, item);
+    const totalQuantity = calculateTotalQuantity(item.detail._id);
     if (!isNaN(value)) {
-      dispatch(
-        doUpdateOrder({ quantity: value, detail: item, _id: item.detail._id })
-      );
+      // Giới hạn tối đa là item.detail.quantity
+      const maxValue = item.detail.quantity;
+      if (value > maxValue) {
+        value = maxValue; // Giới hạn giá trị nhập vào không được vượt quá item.detail.quantity
+      }
+
+      if (value >= 0) {
+        // Kiểm tra giá trị không nhỏ hơn 0
+        if (value === -1 && item.quantity === 1) {
+          // Chỉ cho phép giảm tối đa là 1
+          console.log("Không thể giảm thêm");
+        } else {
+          dispatch(
+            doUpdateOrder({
+              quantity: value,
+              detail: item,
+              _id: item.detail._id,
+            })
+          );
+        }
+      } else {
+        // Xử lý khi giá trị nhập là số âm
+        console.log("Số lượng không hợp lệ!");
+      }
+    } else {
+      // Xử lý khi giá trị nhập không hợp lệ
+      console.log("Giá trị không hợp lệ!");
     }
   };
 
@@ -43,8 +75,21 @@ const Order = (props) => {
     setTotalPrice(sum);
   }, [orderList]);
   const description = "This is a description.";
+  const handleDeleteOrder = (itemId) => {
+    dispatch(doDeleteItemCartAction({ _id: itemId }));
+
+    // Sau khi xóa thành công, load lại trang
+    // window.location.reload();
+  };
   return (
     <div className="order-container">
+      {/* {orderList.length === 0 ? (
+        // Hiển thị khi không có đơn hàng
+        <Empty
+          style={{ backgroundColor: "white" }}
+          description={"không có sản phẩm nào trong giỏ hàng"}
+        />
+      ) :  */}
       <div
         className="order-top"
         style={{
@@ -65,14 +110,10 @@ const Order = (props) => {
               margin: "10px ",
             }}
           >
-            {orderList.length === 0 ? (
-              <Empty
-                style={{ backgroundColor: "white" }}
-                description={"không có sản phẩm nào trong giỏ hàng"}
-              />
-            ) : (
+            {orderList.length !== 0 &&
               orderList.length > 0 &&
               orderList.map((item, index) => {
+                console.log(item.detail._id);
                 return (
                   <div
                     key={item.detail._id}
@@ -127,7 +168,9 @@ const Order = (props) => {
                         }}
                         value={item.quantity}
                         onChange={(value) => handleChangeOrder(value, item)}
-                        step={1}
+                        step={1} // Giới hạn bước là 1
+                        min={1} // Giới hạn giá trị tối thiểu là 1
+                        max={1000} // Giới hạn giá trị tối đa là 1000 hoặc giá trị max tối đa của item.detail.quantity
                       />
                     </span>
                     <span
@@ -153,63 +196,60 @@ const Order = (props) => {
                       className="delete-icon"
                     >
                       <DeleteOutlined
-                        onClick={() =>
-                          dispatch(
-                            doDeleteItemCartAction({ _id: item.detail._id })
-                          )
-                        }
+                        onClick={() => handleDeleteOrder(item.detail._id)}
                       />
                     </span>
                   </div>
                 );
-              })
-            )}
+              })}
           </div>
-          <div
-            className="order-top-right"
-            style={{
-              padding: "10px",
-              // width: "40%",
-              height: "auto",
-              backgroundColor: "white",
-              margin: "10px ",
-            }}
-          >
+          {orderList.length === 0 ? null : (
             <div
-              className="item-text"
-              style={{ display: "flex", justifyContent: "space-between" }}
+              className="order-top-right"
+              style={{
+                padding: "10px",
+                // width: "40%",
+                height: "auto",
+                backgroundColor: "white",
+                margin: "10px ",
+              }}
             >
-              <span>Tạm tính </span>
-              <span>
-                {new Intl.NumberFormat("vi-VN", {
-                  style: "currency",
-                  currency: "VND",
-                }).format(totalPrice)}
-              </span>
+              <div
+                className="item-text"
+                style={{ display: "flex", justifyContent: "space-between" }}
+              >
+                <span>Tạm tính </span>
+                <span>
+                  {new Intl.NumberFormat("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                  }).format(totalPrice)}
+                </span>
+              </div>
+              <Divider></Divider>
+              <div
+                className="item-text"
+                style={{ display: "flex", justifyContent: "space-between" }}
+              >
+                <span>Tổng Tiền</span>
+                <span style={{ color: "#ee4d2d", fontSize: "30px" }}>
+                  {new Intl.NumberFormat("vi-VN", {
+                    style: "currency",
+                    currency: "VND",
+                  }).format(totalPrice)}
+                </span>
+              </div>
+              <Divider></Divider>
+              <div
+                className="item-text btn-buy-now"
+                style={{ display: "flex", textAlign: "center" }}
+              >
+                <button className="now" onClick={() => props.handleBuyNow()}>
+                  Mua ngay({orderList?.length ?? 0})
+                </button>
+              </div>
             </div>
-            <Divider></Divider>
-            <div
-              className="item-text"
-              style={{ display: "flex", justifyContent: "space-between" }}
-            >
-              <span>Tổng Tiền</span>
-              <span style={{ color: "#ee4d2d", fontSize: "30px" }}>
-                {new Intl.NumberFormat("vi-VN", {
-                  style: "currency",
-                  currency: "VND",
-                }).format(totalPrice)}
-              </span>
-            </div>
-            <Divider></Divider>
-            <div
-              className="item-text btn-buy-now"
-              style={{ display: "flex", textAlign: "center" }}
-            >
-              <button className="now" onClick={() => props.handleBuyNow()}>
-                Mua ngay({orderList?.length ?? 0})
-              </button>
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

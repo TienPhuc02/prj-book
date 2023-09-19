@@ -13,11 +13,12 @@ const LoginPage = () => {
     const { username, password } = values;
     SetIsSubmit(true);
     const res = await callAPICreateLogin(username, password);
+    console.log("🚀 ~ file: index.jsx:16 ~ onFinish ~ res:", res.data.data);
     SetIsSubmit(false);
-    if (res?.data) {
+    if (res?.data && res?.data?.data) {
       localStorage.setItem("access_token", res.data.access_token);
-      dispatch(doLoginAction(res.data.user));
-      message.success(res.data.user.fullName);
+      dispatch(doLoginAction(res.data.data));
+      message.success(res.data?.data?.fullName);
       notification.success({
         message: "Trạng Thái Đăng Nhập",
         description: "Bạn Đã Đăng Nhập Thành Công",
@@ -66,7 +67,7 @@ const LoginPage = () => {
             alignItems: "center",
             padding: "40px",
           }}
-          // initialValues={{ remember: true }}
+          // defaultValue={{ remember: true }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"

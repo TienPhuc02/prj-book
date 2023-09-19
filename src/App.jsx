@@ -65,9 +65,10 @@ export default function App() {
     )
       return;
     const res = await callFetchAccount();
+    console.log("🚀 ~ file: App.jsx:68 ~ getAccount ~ res:", res)
     // console.log("check res", res);
-    if (res && res.data) {
-      dispatch(doGetAccountAction(res.data.user));
+    if (res && res.data&&res.data.data) {
+      dispatch(doGetAccountAction(res.data.data));
     }
   };
   useEffect(() => {

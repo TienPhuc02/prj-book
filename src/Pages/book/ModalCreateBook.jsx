@@ -30,6 +30,7 @@ const ModalCreateBook = (props) => {
   const [loadingSlider, setLoadingSlider] = useState(false);
   const [imageUrl, setImageUrl] = useState();
   const [dataThumbnail, setDataThumbnail] = useState([]);
+  const [uploadedSliderImages, setUploadedSliderImages] = useState([]);
   const [dataSlider, setDataSlider] = useState([]);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
@@ -48,8 +49,8 @@ const ModalCreateBook = (props) => {
   };
   const getBookCategory = async () => {
     const res = await callBookCategory();
-    if (res && res?.data) {
-      setCategoryBook(res.data);
+    if (res && res?.data && res.data.data) {
+      setCategoryBook(res.data.data);
     }
   };
   const onChangeSold = (value) => {
@@ -79,25 +80,42 @@ const ModalCreateBook = (props) => {
     }
   };
   const handleUploadFileThumbnail = async ({ file, onSuccess, onError }) => {
-    console.log(file.name);
+    console.log(file);
     const res = await callUploadBookImg(file);
-    // console.log(res);
-    if (res && res.data) {
+    console.log(
+      "🚀 ~ file: ModalCreateBook.jsx:85 ~ handleUploadFileThumbnail ~ res:",
+      res
+    );
+    if (res && res.data && res.data.file) {
       setDataThumbnail({
-        name: res.data.fileUploaded,
+        name: res.data.file.filename,
         uid: file.uid,
       });
       setImageThumbnail(file.name);
+      console.log(imageThumbnail);
+      console.log(dataThumbnail);
       onSuccess("ok");
     }
   };
   const handleUploadFileSlider = async ({ file, onSuccess, onError }) => {
     console.log(file.name);
-    const res = await callUploadBookImg(file);
-    if (res && res.data) {
-      setDataSlider((dataSlider) => [...dataSlider, res.data.fileUploaded]);
-      setImageSlider((imageSlider) => [...imageSlider, file.name]);
-      onSuccess("ok");
+    try {
+      const res = await callUploadBookImg(file);
+      if (res && res.data && res.data.file) {
+        setDataSlider((dataSlider) => [
+          ...dataSlider,
+          {
+            name: res.data.file.filename,
+            uid: file.uid,
+          },
+        ]);
+        setImageSlider((imageSlider) => [...imageSlider, file.name]);
+        console.log("dataSlider", dataSlider);
+        console.log("imageSlider", imageSlider);
+        onSuccess("ok");
+      }
+    } catch (error) {
+      onError(error);
     }
   };
   // console.log(imageSlider, imageThumbnail);
@@ -189,7 +207,7 @@ const ModalCreateBook = (props) => {
           labelCol={{
             span: 24,
           }}
-          // initialValues={{
+          // defaultValue={{
           //   remember: true,
           // }}
           autoComplete="off"
@@ -298,7 +316,7 @@ const ModalCreateBook = (props) => {
                 name="sold"
               >
                 <InputNumber
-                  // initialValues={{
+                  // defaultValue={{
                   //   sold: 0,
                   // }}
                   onChange={onChangeSold}

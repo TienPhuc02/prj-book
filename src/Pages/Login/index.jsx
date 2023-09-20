@@ -24,15 +24,19 @@ const LoginPage = () => {
         description: "Bạn Đã Đăng Nhập Thành Công",
       });
       const slug = localStorage.getItem("slug");
+      console.log("🚀 ~ file: index.jsx:27 ~ onFinish ~ slug:", slug)
       const bookId = localStorage.getItem("book._id");
+      console.log("🚀 ~ file: index.jsx:28 ~ onFinish ~ bookId:", bookId)
       const url_view_order = localStorage.getItem("url_view_order");
       if (slug && bookId) {
         navigate(`/book/${slug}?id=${bookId}`);
       }
       if (url_view_order) {
         navigate(`/${url_view_order}`);
-      } 
-    }
+      } else {
+        navigate("/");
+      }
+    } 
     else {
       notification.error({
         message: "Trạng Thái Đăng Nhập",

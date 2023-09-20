@@ -18,7 +18,7 @@ const ViewDetail = (props) => {
   const [activeBookLoader, setActiveBookLoader] = useState(false);
   const [quantityNumber, setQuantityNumber] = useState(1);
   const location = useLocation();
-  const navigate = useNavigate("/");
+  const navigate = useNavigate();
   const cartArray = useSelector((state) => state.order.cart);
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const [images, setImages] = useState([]);

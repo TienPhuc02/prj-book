@@ -31,9 +31,7 @@ const LoginPage = () => {
       }
       if (url_view_order) {
         navigate(`/${url_view_order}`);
-      } else {
-        navigate("/");
-      }
+      } 
     }
     else {
       notification.error({

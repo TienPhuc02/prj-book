@@ -184,13 +184,13 @@ export default function App() {
       window.location.pathname === "/" ||
       window.location.pathname === "/register" ? (
         <RouterProvider router={router}>
-          <div>
+          {/* <div>
             {isAuthenticated === true ? (
               protectedRoutes
             ) : (
               <Navigate to="/login" />
             )}
-          </div>
+          </div> */}
         </RouterProvider>
       ) : (
         <Loading />

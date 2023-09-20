@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { doLogoutAction } from "../../redux/account/accountSlice";
 import UpdateUser from "../Header/UpdateUser";
 import ChangePassword from "./ChangePassword";
+import { doClearCart } from "../../redux/order/orderSlice";
 const Header = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const Header = (props) => {
   const onChangeSearch = (value) => console.log(value);
   const login = useSelector((state) => state?.account?.isAuthenticated);
   const user = useSelector((state) => state?.account?.user);
-  console.log("🚀 ~ file: index.jsx:24 ~ Header ~ user:", user.role.name)
+  console.log("🚀 ~ file: index.jsx:24 ~ Header ~ user:", user.role.name);
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState("left");
   const [arrowAtCenter, setArrowAtCenter] = useState(false);
@@ -42,6 +43,14 @@ const Header = (props) => {
   const handleCancel = () => {
     setSelectValue(initialSelectValue);
     setIsModalOpen(false);
+  };
+  const handleViewOrder = () => {
+    localStorage.setItem("url_view_order","/vieworder")
+    if (login) {
+      navigate("/vieworder");
+    } else {
+      navigate("/login");
+    }
   };
   useEffect(() => {
     setSelectValue(`Welcome ${user?.fullName}`);
@@ -71,7 +80,7 @@ const Header = (props) => {
           })}
       </div>
       <button
-        onClick={() => navigate("/vieworder")}
+        onClick={() => handleViewOrder()}
         style={{
           margin: "10px 0px 0px 400px",
           background: "#ee4d2d",
@@ -122,6 +131,7 @@ const Header = (props) => {
   const handleLogOut = async () => {
     const res = await callLogOut();
     if (res.data) {
+      dispatch(doClearCart());
       dispatch(doLogoutAction());
       message.success("Đăng xuất thành công!");
       navigate("/");

@@ -23,6 +23,9 @@ export const accountSlice = createSlice({
     },
     doLogoutAction: (state) => {
       localStorage.removeItem("access_token");
+      localStorage.removeItem("slug");
+      localStorage.removeItem("book._id");
+      localStorage.removeItem("url_view_order");
       state.isAuthenticated = false;
       state.isLoading = false;
       state.user = {

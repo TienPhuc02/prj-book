@@ -60,14 +60,14 @@ export default function App() {
   const isLoading = useSelector((state) => state.account.isLoading);
   const getAccount = async () => {
     if (
+      isAuthenticated === false ||
       window.location.pathname === "/login" ||
       window.location.pathname === "/register"
     )
       return;
     const res = await callFetchAccount();
-    console.log("🚀 ~ file: App.jsx:68 ~ getAccount ~ res:", res)
-    // console.log("check res", res);
-    if (res && res.data&&res.data.data) {
+    console.log("🚀 ~ file: App.jsx:68 ~ getAccount ~ res:", res);
+    if (res && res.data && res.data.data) {
       dispatch(doGetAccountAction(res.data.data));
     }
   };

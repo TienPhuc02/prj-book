@@ -52,6 +52,9 @@ export const orderSlice = createSlice({
       //update redux
       state.cart = carts;
     },
+    doClearCart: (state) => {
+      state.cart = []; // Clear the cart upon logout
+    },
     doDeleteItemCartAction: (state, action) => {
       state.cart = state.cart.filter((c) => c.id !== action.payload._id);
     },
@@ -66,6 +69,7 @@ export const {
   doUpdateOrder,
   doDeleteItemCartAction,
   doPlaceOrderAction,
+  doClearCart,
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

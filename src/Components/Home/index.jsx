@@ -154,6 +154,8 @@ const Home = () => {
 
   const handleRedirectBook = (book) => {
     const slug = convertSlug(book.mainText);
+    localStorage.setItem("slug",slug)
+    localStorage.setItem("book._id",book._id)
     navigate(`/book/${slug}?id=${book._id}`);
   };
   return (
@@ -419,12 +421,12 @@ const Home = () => {
               {listBookHome &&
                 listBookHome.length > 0 &&
                 listBookHome.map((item, index) => {
+                  console.log("🚀 ~ file: index.jsx:424 ~ listBookHome.map ~ item:", item)
                   return (
                     <Col key={item.id} span={6} className="book">
                       <div
                         key={item.id}
                         onClick={() => handleRedirectBook(item)}
-                        // className="book"
                         style={{
                           border: "1px solid #cccccc",
                           marginRight: "5px",

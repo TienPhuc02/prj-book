@@ -20,7 +20,7 @@ const ViewDetail = (props) => {
   const location = useLocation();
   const navigate = useNavigate("/");
   const cartArray = useSelector((state) => state.order.cart);
-  console.log("🚀 ~ file: index.jsx:23 ~ ViewDetail ~ cartCount:", cartArray);
+  const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const [images, setImages] = useState([]);
   let params = new URLSearchParams(location.search);
   const id = params?.get("id");
@@ -68,33 +68,52 @@ const ViewDetail = (props) => {
   };
   const dispatch = useDispatch();
   const handleAddToCart = (quantity, book) => {
-    if (cartArray.length === 0) {
-      // Nếu giỏ hàng trống, thêm sản phẩm mới vào giỏ hàng
-      dispatch(doBookAction({ quantity, detail: book, _id: book._id }));
-    } else {
-      // Kiểm tra xem sản phẩm có cùng ID đã tồn tại trong giỏ hàng chưa
-      const existingCartItem = cartArray.find((item) => item.id === book._id);
-
-      if (existingCartItem) {
-        // Nếu sản phẩm đã tồn tại trong giỏ hàng, cộng thêm số lượng vào tối đa là quantity
-        const newQuantity = existingCartItem.quantity + quantity;
-        if (newQuantity <= book.quantity) {
-          dispatch(
-            doUpdateOrder({
-              quantity: newQuantity,
-              detail: book,
-              _id: book._id,
-            })
-          );
-          message.success(`Sản phẩm đã được cập nhật trong giỏ hàng.`);
-        } else {
-          message.error(`Số lượng sản phẩm vượt quá số lượng có sẵn.`);
-        }
-      } else {
-        // Nếu sản phẩm chưa tồn tại trong giỏ hàng, thêm sản phẩm mới vào giỏ hàng
+    if (isAuthenticated) {
+      if (cartArray.length === 0) {
+        // Nếu giỏ hàng trống, thêm sản phẩm mới vào giỏ hàng
         dispatch(doBookAction({ quantity, detail: book, _id: book._id }));
-        message.success(`Sản phẩm đã được thêm vào giỏ hàng.`);
+      } else {
+        // Kiểm tra xem sản phẩm có cùng ID đã tồn tại trong giỏ hàng chưa
+        const existingCartItem = cartArray.find((item) => item.id === book._id);
+
+        if (existingCartItem) {
+          // Nếu sản phẩm đã tồn tại trong giỏ hàng, cộng thêm số lượng vào tối đa là quantity
+          const newQuantity = existingCartItem.quantity + quantity;
+          if (newQuantity <= book.quantity) {
+            dispatch(
+              doUpdateOrder({
+                quantity: newQuantity,
+                detail: book,
+                _id: book._id,
+              })
+            );
+            message.success(`Sản phẩm đã được cập nhật trong giỏ hàng.`);
+          } else {
+            message.error(`Số lượng sản phẩm vượt quá số lượng có sẵn.`);
+          }
+        } else {
+          // Nếu sản phẩm chưa tồn tại trong giỏ hàng, thêm sản phẩm mới vào giỏ hàng
+          dispatch(doBookAction({ quantity, detail: book, _id: book._id }));
+          // Nếu sản phẩm đã tồn tại trong giỏ hàng, cộng thêm số lượng vào tối đa là quantity
+          const newQuantity = existingCartItem.quantity + quantity;
+          if (newQuantity <= book.quantity) {
+            dispatch(
+              doUpdateOrder({
+                quantity: newQuantity,
+                detail: book,
+                _id: book._id,
+              })
+            );
+            message.success(`Sản phẩm đã được cập nhật trong giỏ hàng.`);
+          } else {
+            message.error(`Số lượng sản phẩm vượt quá số lượng có sẵn.`);
+          }
+          message.success(`Sản phẩm đã được thêm vào giỏ hàng.`);
+        }
       }
+    } else {
+      dispatch(doBookAction({ quantity, detail: book, _id: book._id }));
+      navigate("/login");
     }
   };
   const handleChangeQuantityNumber = (value) => {
@@ -201,17 +220,11 @@ const ViewDetail = (props) => {
                     </span>
                   </div>
                   <div className="buy">
-                    <button className="cart" onClick={() =>
-                          handleAddToCart(quantityNumber, dataBook)
-                        }>
-                      {/* <BsCartPlus className="icon-cart" /> */}
-                      <span
-                        // onClick={() =>
-                        //   handleAddToCart(quantityNumber, dataBook)
-                        // }
-                      >
-                        Thêm vào giỏ hàng
-                      </span>
+                    <button
+                      className="cart"
+                      onClick={() => handleAddToCart(quantityNumber, dataBook)}
+                    >
+                      <span>Thêm vào giỏ hàng</span>
                     </button>
                     <button className="now">Mua ngay</button>
                   </div>

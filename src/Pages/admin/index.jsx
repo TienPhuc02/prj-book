@@ -22,11 +22,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { callLogOut } from "../../service/api";
 import { doLogoutAction } from "../../redux/account/accountSlice";
+import { doClearCart } from "../../redux/order/orderSlice";
 const { Header, Content, Footer, Sider } = Layout;
 
 const AdminPage = () => {
   const navigate = useNavigate();
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
   const login = useSelector((state) => state.account.isAuthenticated);
   const isLoading = useSelector((state) => state.account.isLoading);
   const user = useSelector((state) => state.account.user);
@@ -67,9 +68,10 @@ const AdminPage = () => {
   const handleLogOut = async () => {
     const res = await callLogOut();
     if (res.data) {
+      dispatch(doClearCart());
+      dispatch(doLogoutAction());
       navigate("/");
       message.success("Đăng xuất thành công");
-      dispath(doLogoutAction());
     }
   };
   return (

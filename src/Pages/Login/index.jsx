@@ -23,7 +23,16 @@ const LoginPage = () => {
         message: "Trạng Thái Đăng Nhập",
         description: "Bạn Đã Đăng Nhập Thành Công",
       });
-      navigate("/");
+      const slug = localStorage.getItem("slug");
+      const bookId = localStorage.getItem("book._id");
+      if (slug && bookId) {
+        navigate(`/book/${slug}?id=${bookId}`);
+      }
+      if (localStorage.getItem("url_view_order") !== "") {
+        navigate(`${localStorage.getItem("url_view_order")}`);
+      } else {
+        navigate("/");
+      }
     } else {
       notification.error({
         message: "Trạng Thái Đăng Nhập",

@@ -45,7 +45,7 @@ const Header = (props) => {
     setIsModalOpen(false);
   };
   const handleViewOrder = () => {
-    localStorage.setItem("url_view_order","/vieworder")
+    localStorage.setItem("url_view_order","vieworder")
     if (login) {
       navigate("/vieworder");
     } else {

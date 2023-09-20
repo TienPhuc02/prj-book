@@ -25,15 +25,17 @@ const LoginPage = () => {
       });
       const slug = localStorage.getItem("slug");
       const bookId = localStorage.getItem("book._id");
+      const url_view_order = localStorage.getItem("url_view_order");
       if (slug && bookId) {
         navigate(`/book/${slug}?id=${bookId}`);
       }
-      if (localStorage.getItem("url_view_order") !== "") {
-        navigate(`${localStorage.getItem("url_view_order")}`);
+      if (url_view_order) {
+        navigate(`/${url_view_order}`);
       } else {
         navigate("/");
       }
-    } else {
+    }
+    else {
       notification.error({
         message: "Trạng Thái Đăng Nhập",
         description: "Bạn Đã Đăng Nhập Thất Bại",

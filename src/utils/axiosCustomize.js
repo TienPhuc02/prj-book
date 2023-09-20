@@ -45,10 +45,6 @@ instance.interceptors.response.use(
       +error.response.status === 401 &&
       !error.config.headers[NO_RETRY_HEADER]
     ) {
-      // return updateToken().then((token) => {
-      //   error.config.headers.xxxx;
-      //   return axios.request(config);
-      // });
       const access_token = await handleRereshToken();
       error.config.headers[NO_RETRY_HEADER] = "true";
       if (access_token) {
@@ -57,14 +53,6 @@ instance.interceptors.response.use(
         return instance.request(error.config);
       }
     }
-    // if (
-    //   error.config &&
-    //   error.response &&
-    //   +error.response.status === 400 &&
-    //   error.config.url === "/api/v1/auth/refresh"
-    // ) {
-    //   window.location.href = "/login";
-    // }
 
     return error?.response?.data ?? Promise.reject(error);
   }

@@ -100,11 +100,7 @@ export default function App() {
         },
         {
           path: "vieworder",
-          element: (
-            <ProtectedRoute>
-              <ViewOrder />
-            </ProtectedRoute>
-          ),
+          element: <ViewOrder />,
         },
         {
           path: "historyorder",

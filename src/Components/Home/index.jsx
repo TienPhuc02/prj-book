@@ -154,8 +154,8 @@ const Home = () => {
 
   const handleRedirectBook = (book) => {
     const slug = convertSlug(book.mainText);
-    localStorage.setItem("slug",slug)
-    localStorage.setItem("book._id",book._id)
+    localStorage.setItem("slug", slug);
+    localStorage.setItem("bookId", book._id);
     navigate(`/book/${slug}?id=${book._id}`);
   };
   return (
@@ -409,6 +409,7 @@ const Home = () => {
             style={{ borderRadius: "5px", backgroundColor: "white" }}
           >
             <Tabs
+              style={{ width: "100%" }}
               defaultActiveKey="1"
               items={items}
               onChange={(values) => setQuery(values)}
@@ -421,7 +422,10 @@ const Home = () => {
               {listBookHome &&
                 listBookHome.length > 0 &&
                 listBookHome.map((item, index) => {
-                  console.log("🚀 ~ file: index.jsx:424 ~ listBookHome.map ~ item:", item)
+                  console.log(
+                    "🚀 ~ file: index.jsx:424 ~ listBookHome.map ~ item:",
+                    item
+                  );
                   return (
                     <Col key={item.id} span={6} className="book">
                       <div

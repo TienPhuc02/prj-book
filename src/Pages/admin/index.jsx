@@ -70,8 +70,8 @@ const AdminPage = () => {
     if (res.data) {
       dispatch(doClearCart());
       dispatch(doLogoutAction());
-      navigate("/");
       message.success("Đăng xuất thành công");
+      navigate("/");
     }
   };
   return (

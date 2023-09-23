@@ -13,31 +13,30 @@ const LoginPage = () => {
     const { username, password } = values;
     SetIsSubmit(true);
     const res = await callAPICreateLogin(username, password);
-    console.log("🚀 ~ file: index.jsx:16 ~ onFinish ~ res:", res.data.data);
+    console.log("🚀 ~ file: index.jsx:16 ~ onFinish ~ res:", res);
     SetIsSubmit(false);
-    if (res?.data && res?.data?.data) {
+    if (res && res?.data && res?.data?.data) {
       localStorage.setItem("access_token", res.data.access_token);
+      const slug = localStorage.getItem("slug");
+      const bookId = localStorage.getItem("bookId");
+      const url_view_order = localStorage.getItem("url_view_order");
       dispatch(doLoginAction(res.data.data));
       message.success(res.data?.data?.fullName);
       notification.success({
         message: "Trạng Thái Đăng Nhập",
         description: "Bạn Đã Đăng Nhập Thành Công",
       });
-      const slug = localStorage.getItem("slug");
-      console.log("🚀 ~ file: index.jsx:27 ~ onFinish ~ slug:", slug)
-      const bookId = localStorage.getItem("book._id");
-      console.log("🚀 ~ file: index.jsx:28 ~ onFinish ~ bookId:", bookId)
-      const url_view_order = localStorage.getItem("url_view_order");
       if (slug && bookId) {
+        console.log("Navigate to /book");
         navigate(`/book/${slug}?id=${bookId}`);
       }
       if (url_view_order) {
+        console.log("Navigate to /view order");
         navigate(`/${url_view_order}`);
       } else {
         navigate("/");
       }
-    } 
-    else {
+    } else {
       notification.error({
         message: "Trạng Thái Đăng Nhập",
         description: "Bạn Đã Đăng Nhập Thất Bại",
@@ -68,7 +67,6 @@ const LoginPage = () => {
             " 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1)",
         }}
       >
-        {/* <h2 style={{ textAlign: "center", fontSize: "20px" }}>Đăng nhập</h2> */}
         <Form
           name="basic"
           labelCol={{ span: 8 }}

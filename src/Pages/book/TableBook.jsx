@@ -35,8 +35,9 @@ const TableBook = (props) => {
       // dataIndex: "_id",
       render: (record) => {
         return (
-          <div>
+          <div  style={{maxWidth:"50%"}}>
             <a
+            style={{widmaxWidthth:"50%"}}
               onClick={() => {
                 props.handleShowDrawer();
                 props.setDataDetailBook(record);
@@ -152,7 +153,7 @@ const TableBook = (props) => {
       loading={props.isLoading}
       title={() => {
         return (
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div style={{ display: "flex", justifyContent: "space-between"}}>
             <div>Table Lists Book</div>
             <div>
               <Button

@@ -66,12 +66,12 @@ const SearchInput = (props) => {
         </Row>
         <Row style={{ float: "right" }}>
           <Form.Item style={{ marginRight: "10px" }}>
-            <Button type="primary" htmlType="submit">
+            <Button  className="bg-[#4096ff]" type="primary" htmlType="submit">
               Search
             </Button>
           </Form.Item>
           <Form.Item>
-            <Button onClick={handleClear} htmlType="submit">
+            <Button  className="bg-[#4096ff] text-white" onClick={handleClear} htmlType="submit">
               Clear
             </Button>
           </Form.Item>

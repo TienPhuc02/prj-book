@@ -159,32 +159,9 @@ const Home = () => {
     navigate(`/book/${slug}?id=${book._id}`);
   };
   return (
-    <div
-      className="home"
-      style={{
-        backgroundColor: "#EFEEF0",
-        flexDirection: "row",
-        height: "auto",
-      }}
-    >
-      <div
-        className="home-container-left"
-        style={{
-          borderTopRightRadius: "10px",
-          width: "20%",
-          backgroundColor: "white",
-          padding: "10px 5px",
-          margin: "20px 5px 0px 0px",
-        }}
-      >
-        <div
-          className="filter"
-          style={{
-            paddingBottom: "10px",
-            display: "flex",
-            justifyContent: "space-between",
-          }}
-        >
+    <div className="home grid grid-cols-3 bg-[#efef0] bg-[#eae9e9]">
+      <div className="home-container-left col-span-1 rounded-tr-xl bg-white py-[10px] px-[5px] h-auto mt-[20px]">
+        <div className="filter">
           <div className="filter-icon">
             <FilterOutlined style={{ color: "blue" }} />
             <span>Bộ lọc tìm kiếm</span>
@@ -262,7 +239,11 @@ const Home = () => {
                   paddingBottom: "10px",
                 }}
               >
-                <Button onClick={() => form.submit()} type="primary">
+                <Button
+                  className="bg-[#4096ff]"
+                  onClick={() => form.submit()}
+                  type="primary"
+                >
                   Áp dụng
                 </Button>
               </div>
@@ -344,25 +325,27 @@ const Home = () => {
           </Form.Item>
           <Row>
             <Form.Item name="range">
-              <div className="price-range" style={{ paddingTop: "20px" }}>
+              <div className="price-range w-full">
                 <span>Khoang gia</span>
                 <div
                   className="range"
                   style={{
                     display: "flex",
+                    alignItems: "center",
                     justifyContent: "space-between",
                     paddingTop: "10px",
                   }}
                 >
                   <Form.Item name="from">
-                    <InputNumber placeholder="Small" />
+                    <InputNumber placeholder="Small" className="w-full" />
                   </Form.Item>
-                  -
+                  <span>-</span>
                   <Form.Item name={`to`}>
-                    <InputNumber placeholder="Big" />
+                    <InputNumber placeholder="Big" className="w-full" />
                   </Form.Item>
                 </div>
                 <div
+                  // className="bg-[#4096ff]"
                   style={{
                     display: "flex",
                     justifyContent: "center",
@@ -370,7 +353,11 @@ const Home = () => {
                     paddingBottom: "10px",
                   }}
                 >
-                  <Button onClick={() => form.submit()} type="primary">
+                  <Button
+                    className="bg-[#4096ff]"
+                    onClick={() => form.submit()}
+                    type="primary"
+                  >
                     Ap Dung
                   </Button>
                 </div>
@@ -391,12 +378,12 @@ const Home = () => {
         </div>
       </Drawer>
       <div
-        className="home-container-right"
+        className="home-container-right max-[1000px]:col-span-3 bg-[#eae9e9] col-span-2"
         style={{
-          flex: 1,
+          // flex: 1,
           backgroundColor: "white",
           margin: "20px 0px 0px 10px",
-          display: "flex",
+          // display: "flex",
           flexDirection: "column",
         }}
       >

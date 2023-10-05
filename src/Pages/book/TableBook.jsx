@@ -35,9 +35,9 @@ const TableBook = (props) => {
       // dataIndex: "_id",
       render: (record) => {
         return (
-          <div  style={{maxWidth:"50%"}}>
+          <div>
             <a
-            style={{widmaxWidthth:"50%"}}
+              className="max-[963px]:text-[10px]"
               onClick={() => {
                 props.handleShowDrawer();
                 props.setDataDetailBook(record);
@@ -150,13 +150,15 @@ const TableBook = (props) => {
   };
   return (
     <Table
+      className="w-full"
       loading={props.isLoading}
       title={() => {
         return (
-          <div style={{ display: "flex", justifyContent: "space-between"}}>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div>Table Lists Book</div>
             <div>
               <Button
+                className="bg-[#4096ff]"
                 style={{ float: "right", margin: "0px 5px" }}
                 type="primary"
                 onClick={downloadExcel}
@@ -165,6 +167,7 @@ const TableBook = (props) => {
                 Export
               </Button>
               <Button
+                className="bg-[#4096ff]"
                 onClick={props.handleOpenBtnModalCreateBook}
                 style={{ margin: "0px 10px" }}
                 type="primary"

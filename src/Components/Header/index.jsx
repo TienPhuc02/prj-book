@@ -31,7 +31,7 @@ const Header = (props) => {
   const [initialSelectValue, setInitialSelectValue] = useState(
     `Welcome ${user?.fullName}`
   );
-  const text = <span>Sản phẩm mới thêm</span>;
+  const text = <span className="text-center">Sản phẩm mới thêm</span>;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setSelectValue(initialSelectValue);
@@ -45,7 +45,7 @@ const Header = (props) => {
     setIsModalOpen(false);
   };
   const handleViewOrder = () => {
-    localStorage.setItem("url_view_order","vieworder")
+    localStorage.setItem("url_view_order", "vieworder");
     if (login) {
       navigate("/vieworder");
     } else {
@@ -79,18 +79,21 @@ const Header = (props) => {
             );
           })}
       </div>
+      <div className="text-center">
       <button
+        className="bg-[#4096ff] rounded-[10px] p-[5px] text-white text-[13px]"
         onClick={() => handleViewOrder()}
-        style={{
-          margin: "10px 0px 0px 400px",
-          background: "#ee4d2d",
-          color: "white",
-          borderRadius: "5px",
-          padding: "10px",
-        }}
+        // style={{
+        //   margin: "10px 0px 0px 400px",
+        //   background: "#ee4d2d",
+        //   color: "white",
+        //   borderRadius: "5px",
+        //   padding: "10px",
+        // }}
       >
         Xem giỏ hàng
       </button>
+      </div>
     </>
   );
   const mergedArrow = useMemo(() => {
@@ -161,7 +164,7 @@ const Header = (props) => {
     },
   ];
   return (
-    <div style={{ marginTop: "10px", display: "flex", flexDirection: "row" }}>
+    <div className="w-full flex ">
       <AiOutlineMenu className="menu-icon" onClick={showDrawer} />
       <Drawer
         title="Menu Chức Năng"
@@ -171,100 +174,104 @@ const Header = (props) => {
         key={placement}
       >
         <div>Quản Lí Tài Khoản</div>
-        <div style={{ marginTop: "20px" }}>Đăng Xuất</div>
+        <div>Đăng Xuất</div>
       </Drawer>
-      <DiReact
-        onClick={() => {
-          navigate("/");
-        }}
-        className="react-icon"
-        style={{ fontSize: "50px", color: "#89D3FF", cursor: "pointer" }}
-      />
-      <span
-        onClick={() => {
-          navigate("/");
-        }}
-        className="logo"
-        style={{
-          color: "#89D3FF",
-          paddingTop: "10px",
-          paddingRight: "10px",
-          cursor: "pointer",
-        }}
-      >
-        ProjectHUST
-      </span>
-      <Search
-        onChange={(e) => props.setSearchTerm(e.target.value)}
-        placeholder="Bạn tìm gì hôm nay"
-        onSearch={onSearch}
-        style={{
-          width: 1000,
-        }}
-      />
-      <div className="cart">
-        <Popover
-          placement="bottomRight"
-          title={text}
-          content={content}
-          arrow={mergedArrow}
-        >
-          <Badge count={orderNumber}>
-            <ShoppingCartOutlined
-              style={{ fontSize: "30px", color: "#89D3FF", cursor: "pointer" }}
-              shape="square"
-              size="large"
-            />
-          </Badge>
-        </Popover>
-      </div>
-      <div style={{ paddingTop: "5px", marginLeft: "20px", opacity: 0.6 }}>
-        {login === true ? (
-          <Space nowrap="true" style={{}}>
-            <Avatar src={<img src={urlAvatar} alt="avatar" />} />
-            <Select
-              value={selectValue}
-              style={{
-                width: 170,
+      <div className="flex w-full">
+        <div className="logo flex  text-[#0065ff] items-center">
+          <div className="cursor-pointer">
+            <DiReact
+              onClick={() => {
+                navigate("/");
               }}
-              bordered={false}
-              options={options}
-              onChange={(value) => {
-                if (value === "Đăng Xuất") {
-                  setSelectValue("Đăng Xuất");
-                  handleLogOut();
-                }
-                if (value === "Trang Quản Trị") {
-                  setSelectValue("Trang Quản Trị");
-                  navigate("/admin");
-                }
-                if (value === "Lịch sử mua hàng") {
-                  navigate("/historyorder");
-                  setSelectValue("Lịch sử mua hàng");
-                }
-                if (value === "Quản lí tài khoản") {
-                  setSelectValue("Quản lí tài khoản");
-                  showModal();
-                }
-              }}
+              className="react-icon text-[40px]"
             />
-          </Space>
-        ) : (
-          <div style={{ cursor: "pointer" }} onClick={() => navigate("/login")}>
-            Đăng nhập
           </div>
-        )}
+          <span
+            onClick={() => {
+              navigate("/");
+            }}
+            className="logo cursor-pointer"
+          >
+            ProjectHUST
+          </span>
+        </div>
+        <div className="w-[80%]">
+          <Search
+            className="w-full"
+            onChange={(e) => props.setSearchTerm(e.target.value)}
+            placeholder="Bạn tìm gì hôm nay"
+            onSearch={onSearch}
+          />
+        </div>
+        <div className="flex items-center">
+          <div className="cart">
+            <Popover
+              placement="bottomRight"
+              title={text}
+              content={content}
+              arrow={mergedArrow}
+            >
+              <Badge count={orderNumber}>
+                <ShoppingCartOutlined
+                  shape="square"
+                  size="large"
+                  className="text-[40px] text-[#0065ff]"
+                />
+              </Badge>
+            </Popover>
+          </div>
+          <div>
+            {login === true ? (
+              <Space nowrap="true" style={{}}>
+                <Avatar
+                  className="text-[15px]"
+                  src={<img src={urlAvatar} alt="avatar" />}
+                />
+                <Select
+                  value={selectValue}
+                  bordered={false}
+                  options={options}
+                  onChange={(value) => {
+                    if (value === "Đăng Xuất") {
+                      setSelectValue("Đăng Xuất");
+                      handleLogOut();
+                    }
+                    if (value === "Trang Quản Trị") {
+                      setSelectValue("Trang Quản Trị");
+                      navigate("/admin");
+                    }
+                    if (value === "Lịch sử mua hàng") {
+                      navigate("/historyorder");
+                      setSelectValue("Lịch sử mua hàng");
+                    }
+                    if (value === "Quản lí tài khoản") {
+                      setSelectValue("Quản lí tài khoản");
+                      showModal();
+                    }
+                  }}
+                />
+              </Space>
+            ) : (
+              <div
+                className="border border-[#0065ff] bg-[#cce1ff] rounded-[10px] p-[10px] text-center text-[10px] text-[#0065ff] ml-[10px] cursor-pointer"
+                onClick={() => navigate("/login")}
+              >
+                Đăng nhập
+              </div>
+            )}
+          </div>
+        </div>
+        <Modal
+          width={"600px"}
+          title="Quản lí tài khoản"
+          open={isModalOpen}
+          footer={null}
+          // onOk={handleOk}
+          onCancel={handleCancel}
+        >
+          <Tabs defaultActiveKey="1" items={items} onChange={onChangeTab} />
+        </Modal>
       </div>
-      <Modal
-        width={"600px"}
-        title="Quản lí tài khoản"
-        open={isModalOpen}
-        footer={null}
-        // onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <Tabs defaultActiveKey="1" items={items} onChange={onChangeTab} />
-      </Modal>
     </div>
   );
 };

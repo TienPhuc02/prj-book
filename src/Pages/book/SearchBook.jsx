@@ -3,7 +3,7 @@ import { Button, Col, Form, Input, Row } from "antd";
 const SearchBook = (props) => {
   return (
     <div>
-      <Form form={props.form} onFinish={props.handleSubmiteSearch}>
+      <Form  form={props.form} onFinish={props.handleSubmiteSearch}>
         <Row justify="space-between">
           <Col span={6}>
             <Form.Item label="Tên sách" name="mainText">
@@ -22,10 +22,10 @@ const SearchBook = (props) => {
           </Col>
         </Row>
         <Row style={{ float: "right", margin: "30px 0px" }}>
-          <Button htmlType="submit" type="primary">
+          <Button className="bg-[#4096ff]" htmlType="submit" type="primary">
             Search
           </Button>
-          <Button onClick={props.handleClear} style={{ marginLeft: "10px" }}>
+          <Button className="bg-[#4096ff]" onClick={props.handleClear} style={{ marginLeft: "10px" }}>
             Clear
           </Button>
         </Row>

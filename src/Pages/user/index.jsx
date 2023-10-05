@@ -7,6 +7,7 @@ import {
   message,
   notification,
 } from "antd";
+import "../user/index.scss";
 import SearchInput from "./SearchInput";
 import { FiTrash } from "react-icons/fi";
 import { BsPen } from "react-icons/bs";
@@ -251,7 +252,7 @@ const UserPage = () => {
         <SearchInput handleSearch={handleSearch} />
       </div>
       <div>
-        <Button onClick={handleRefresh} type="primary">
+        <Button className="bg-[#4096ff]" onClick={handleRefresh} type="primary">
           Refresh
         </Button>
       </div>
@@ -287,10 +288,11 @@ const UserPage = () => {
                 <>
                   Table List User
                   <>
-                    <Button style={{ float: "right" }}>
+                    <Button className="bg-[#4096ff]" style={{ float: "right" }}>
                       <RedoOutlined />
                     </Button>
                     <Button
+                      className="bg-[#4096ff]"
                       style={{ float: "right", margin: "0px 5px" }}
                       type="primary"
                       onClick={downloadExcel}
@@ -299,6 +301,7 @@ const UserPage = () => {
                       Export
                     </Button>
                     <Button
+                      className="bg-[#4096ff]"
                       style={{ float: "right", margin: "0px 5px" }}
                       type="primary"
                       onClick={handleClickBtnImport}
@@ -307,6 +310,7 @@ const UserPage = () => {
                       Import
                     </Button>
                     <Button
+                      className="bg-[#4096ff]"
                       onClick={handleBtnModalCreateUser}
                       style={{ float: "right" }}
                       type="primary"

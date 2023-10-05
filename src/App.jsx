@@ -31,7 +31,7 @@ const Layout = () => {
   const [searchTerm, setSearchTerm] = useState("");
   return (
     <div>
-      <div className="layout-app">
+      <div className="layout-app pt-[10px]">
         <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         <div>
           <Outlet context={[searchTerm, setSearchTerm]} />

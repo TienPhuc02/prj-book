@@ -103,6 +103,7 @@ const LoginPage = () => {
             wrapperCol={{ offset: 8, span: 16 }}
           >
             <Button
+              className="bg-[#4096ff]"
               style={{
                 //   fontSize: "17px",
                 //   // fontWeight: "bold",
@@ -121,6 +122,7 @@ const LoginPage = () => {
         <p style={{ textAlign: "center" }}>
           <Link style={{ marginLeft: "10px" }} to={"/register"}>
             <Button
+            className="bg-[#4096ff]"
               type="primary"
               // style={{
               //   backgroundColor: " #42b72a",

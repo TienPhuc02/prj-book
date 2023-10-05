@@ -76,9 +76,6 @@ const AdminPage = () => {
   };
   return (
     <Layout
-      style={{
-        minHeight: "100vh",
-      }}
     >
       <Sider
         theme="light"
@@ -88,7 +85,6 @@ const AdminPage = () => {
       >
         <div
           style={{
-            height: 32,
             margin: 16,
             background: "rgba(255, 255, 255, 0.2)",
             color: "black",

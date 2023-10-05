@@ -28,7 +28,6 @@ button {
   border: 0;
 }
 body {
-  min-height: 100vh;
   font-weight: 400;
   font-size: 16px;
   line-height: 1;
@@ -43,22 +42,15 @@ html {
   margin: 0;
   padding: 0;
 }
-.home {
-  // height: 90vh;
-  background-color: #eae9e9;
-}
+
 .filter-icon {
   display: none;
 }
 .footer-home-container-right {
   background-color: #cccccc;
   width: 100%;
-  height: auto;
-  flex: 1;
 }
-.home {
-  display: flex;
-}
+
 .book:hover {
   transform: translateY(-20px);
   cursor: pointer;
@@ -79,14 +71,6 @@ html {
     /* display: flex; */
     flex-direction: row;
     height: auto;
-  }
-  .home {
-    display: initial;
-    /* Hoặc */
-    display: unset;
-    /* Hoặc */
-    display: block;
-    /* Hoặc bất kỳ giá trị display khác phù hợp với yêu cầu của bạn */
   }
   #root > div > div > div > div:nth-child(1) > div.cart > span {
     display: flex;
@@ -109,14 +93,6 @@ html {
   }
 }
 @media only screen and (max-width: 391px) {
-  // .home {
-  //   display: initial;
-  //   /* Hoặc */
-  //   display: unset;
-  //   /* Hoặc */
-  //   display: block;
-  //   /* Hoặc bất kỳ giá trị display khác phù hợp với yêu cầu của bạn */
-  // }
 }
 @media only screen and (max-width: 700px) {
   .book {
